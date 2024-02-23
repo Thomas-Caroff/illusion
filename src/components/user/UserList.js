@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Table } from "reactstrap";
 import NewUserModal from "./NewUserModal";
 
-import ConfirmRemovalModal from "./ConfirmRemovalModal";
+import ConfirmRemovalModal from "./DeleteUserModal";
 
 class UserList extends Component {
 	render() {
