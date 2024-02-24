@@ -4,6 +4,7 @@ import { Col, Container, Row } from "reactstrap";
 import UserList from "../components/user/UserList";
 import NewUserModal from "../components/user/NewUserModal";
 import { API_URL } from "../constants";
+import "../assets/css/app.css";
 
 class Home extends Component {
 	state = {
