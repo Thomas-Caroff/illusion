@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import { Table } from "reactstrap";
 import NewUserModal from "./NewUserModal";
-
 import ConfirmRemovalModal from "./DeleteUserModal";
 
 class UserList extends Component {
 	render() {
 		const users = this.props.users;
 		return (
-			<Table dark>
+			<Table>
 				<thead>
 					<tr>
 						<th>Username</th>

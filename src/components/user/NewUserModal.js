@@ -2,6 +2,8 @@ import React, { Component, Fragment } from "react";
 import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
 import NewUserForm from "./NewUserForm";
 
+import "../../assets/css/button.css";
+
 class NewUserModal extends Component {
 	state = {
 		modal: false,
@@ -17,20 +19,15 @@ class NewUserModal extends Component {
 		const create = this.props.create;
 
 		var title = "Editing User";
-		var button = <Button onClick={this.toggle}>Edit</Button>;
+		var button = (
+			<Button className="fantasy-bone-n-coper" onClick={this.toggle}>
+				Edit
+			</Button>
+		);
 		if (create) {
 			title = "Creating New User";
 
-			button = (
-				<Button
-					color="primary"
-					className="float-right"
-					onClick={this.toggle}
-					style={{ minWidth: "200px" }}
-				>
-					Create New
-				</Button>
-			);
+			button = <Button>Create New</Button>;
 		}
 
 		return (
