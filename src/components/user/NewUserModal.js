@@ -27,7 +27,7 @@ class NewUserModal extends Component {
 		if (create) {
 			title = "Creating New User";
 
-			button = <Button>Create New</Button>;
+			button = <Button onClick={this.toggle}>Create New</Button>;
 		}
 
 		return (
