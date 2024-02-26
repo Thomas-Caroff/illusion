@@ -3,8 +3,9 @@ import axios from "axios";
 import { Col, Container, Row } from "reactstrap";
 import UserList from "../components/user/UserList";
 import NewUserModal from "../components/user/NewUserModal";
+import Calendar from "../components/calendar/Calendar";
 import { API_URL } from "../constants";
-import "../assets/css/app.css";
+import "../assets/css/app.scss";
 
 class Home extends Component {
 	state = {
@@ -42,6 +43,11 @@ class Home extends Component {
 							create={true}
 							resetState={this.resetState}
 						/>
+					</Col>
+				</Row>
+				<Row>
+					<Col>
+						<Calendar />
 					</Col>
 				</Row>
 			</Container>
