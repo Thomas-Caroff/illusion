@@ -4,6 +4,7 @@ import { Col, Container, Row } from "reactstrap";
 import UserList from "../components/user/UserList";
 import NewUserModal from "../components/user/NewUserModal";
 import Calendar from "../components/calendar/Calendar";
+import Widget from "../components/widget/Widget";
 import { API_URL } from "../constants";
 import "../assets/css/app.scss";
 
@@ -47,7 +48,14 @@ class Home extends Component {
 				</Row>
 				<Row>
 					<Col>
-						<Calendar />
+						<Widget
+							title={<h6>Calendar</h6>}
+							settings
+							close
+							bodyClass={"pt-2 px-0 py-0"}
+						>
+							<Calendar />
+						</Widget>
 					</Col>
 				</Row>
 			</Container>

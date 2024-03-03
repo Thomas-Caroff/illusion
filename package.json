@@ -12,6 +12,7 @@
     "font-face": "^2.3.4",
     "moment": "^2.30.1",
     "react": "^18.2.0",
+    "react-animate-height": "^3.2.3",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "reactstrap": "^9.2.2",
