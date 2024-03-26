@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HeaderContent from "./components/headerContent/HeaderContent";
+import Header from "./components/Header";
 import Home from "./pages/Home";
 import AppLayout from "./components/AppLayout";
 import Blank from "./pages/Blank";
