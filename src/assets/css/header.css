@@ -1,0 +1,11 @@
+.header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 15%;
+	background-color: #1d1a18;
+	color: #ae8e1c;
+	opacity: 90%;
+	z-index: -1;
+}
