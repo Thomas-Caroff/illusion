@@ -28,9 +28,9 @@ import BurgerIcon from "../../assets/headerIcons/BurgerIcon";
 import SearchIcon from "../../assets/headerIcons/SearchIcon";
 import ArrowIcon from "../../assets/headerIcons/ArrowIcon";
 
-import s from "./Header.module.scss";
+import s from "./HeaderContent.module.scss";
 
-class Header extends React.Component {
+class HeaderContent extends React.Component {
 	static propTypes = {
 		dispatch: PropTypes.func.isRequired,
 		sidebarPosition: PropTypes.string.isRequired,
@@ -409,4 +409,4 @@ class Header extends React.Component {
 	}
 }
 
-export default Header;
+export default HeaderContent;
