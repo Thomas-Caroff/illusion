@@ -1,16 +1,17 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "./sidebar/sidebar.jsx";
+import { Container, Col } from "reactstrap";
 
 const AppLayout = () => {
 	return (
-		<div
-			style={{
-				padding: "50px 0px 0px 370px",
-			}}
-		>
-			<Sidebar />
-			<Outlet />
-		</div>
+		<Container>
+			<Col>
+				<Sidebar />
+			</Col>
+			<Col>
+				<Outlet />
+			</Col>
+		</Container>
 	);
 };
 

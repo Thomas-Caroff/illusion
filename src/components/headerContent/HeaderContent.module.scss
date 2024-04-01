@@ -2,7 +2,7 @@
 
 .root {
 	display: flex;
-	justify-content: flex-end !important;
+	justify-content: flex-end;
 	@media (max-width: breakpoint-max(sm)) {
 		margin-bottom: 50px;
 	}
