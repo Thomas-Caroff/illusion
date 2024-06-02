@@ -63,7 +63,7 @@ const Sidebar = () => {
 
 	return (
 		<div className="sidebar">
-			<div className="sidebar__logo">Animate</div>
+			<div className="sidebar__logo">Menu</div>
 			<div ref={sidebarRef} className="sidebar__menu">
 				<div
 					ref={indicatorRef}

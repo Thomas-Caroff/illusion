@@ -30,7 +30,7 @@ class Home extends Component {
 	render() {
 		return (
 			<Container className="body">
-				{/* <Row>
+				<Row>
 					<Col>
 						<UserList
 							users={this.state.users}
@@ -57,7 +57,7 @@ class Home extends Component {
 							<Calendar />
 						</Widget>
 					</Col>
-				</Row> */}
+				</Row>
 				<div>Test</div>
 			</Container>
 		);
