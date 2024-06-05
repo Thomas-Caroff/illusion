@@ -36,6 +36,7 @@ Coded by www.creative-tim.com
 */
 
 // Material Dashboard 2 React layouts
+import Stats from "layouts/stats";
 import Dashboard from "layouts/dashboard";
 import Tables from "layouts/tables";
 import Billing from "layouts/billing";
@@ -49,6 +50,14 @@ import SignUp from "layouts/authentication/sign-up";
 import Icon from "@mui/material/Icon";
 
 const routes = [
+  {
+    type: "collapse",
+    name: "Character stats",
+    key: "stats",
+    icon: <Icon fontSize="small">token</Icon>,
+    route: "/stats",
+    component: <Stats />,
+  },
   {
     type: "collapse",
     name: "Dashboard",
