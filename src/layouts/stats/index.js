@@ -8,7 +8,7 @@
 
 Coded by www.creative-tim.com
 
- =========================================================
+=========================================================
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
@@ -35,9 +35,35 @@ import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 // Dashboard components
 import Projects from "layouts/dashboard/components/Projects";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
+import { useEffect, useState } from "react";
+import { API_URL } from "constants";
 
 function Stats() {
+  let [caracterisctics, setCaracterisctics] = useState([]);
   const { sales, tasks } = reportsLineChartData;
+
+  const hardcoded_character = "tscxxg28";
+
+  useEffect(() => {
+    // Fetch our data from our API
+    fetch(API_URL + "character/" + hardcoded_character)
+      // Resolve the responsove data
+      .then((response) => response.json())
+      .then((json) => {
+        // Show data in console
+        const caracterisctics = {
+          strength: json[0].strength,
+          dexterity: json[0].dexterity,
+          constitution: json[0].constitution,
+          intelligence: json[0].intelligence,
+          wisdom: json[0].wisdom,
+          charisma: json[0].charisma,
+          proficiency: json[0].proficiency_bonus,
+        };
+        console.log(json);
+        setCaracterisctics(caracterisctics);
+      });
+  }, []);
 
   return (
     <DashboardLayout>
@@ -46,17 +72,7 @@ function Stats() {
         <Grid container spacing={3}>
           <Grid item xs={12} md={6} lg={5}>
             <MDBox mb={1.5}>
-              <StatisticsCard
-                color="dark"
-                icon="weekend"
-                title="Bookings"
-                count={281}
-                percentage={{
-                  color: "success",
-                  amount: "+55%",
-                  label: "than lask week",
-                }}
-              />
+              <StatisticsCard color="dark" stats={caracterisctics} setStat={setCaracterisctics} />
             </MDBox>
           </Grid>
           <Grid item xs={12} md={6} lg={3}>

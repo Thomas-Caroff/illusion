@@ -8,13 +8,13 @@
 
 Coded by www.creative-tim.com
 
- =========================================================
+=========================================================
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
 // prop-types is a library for typechecking of props
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -26,15 +26,57 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import { Button, Grid } from "@mui/material";
 import MDInput from "components/MDInput";
+import { useState } from "react";
 
-function StatisticsCard({ color, title, count, percentage, icon }) {
-  let isEditable = false;
+function StatisticsCard({ color, stats }) {
+  const [form, setValues] = useState({
+    strength: stats.strength,
+    dexterity: stats.dexterity,
+    constitution: stats.constitution,
+    intelligence: stats.intelligence,
+    wisdom: stats.wisdom,
+    charisma: stats.charisma,
+    proficiency: stats.proficiency,
+  });
+  const [isStatEditable, setIsStatEditable] = useState(false);
+
+  function switchEditable() {
+    if (isStatEditable) {
+    }
+    setIsStatEditable(!isStatEditable);
+    return 0;
+  }
+
+  const onChange = (e) => {
+    setValues({
+      ...form,
+      [e.target.id]: e.target.value,
+    });
+  };
+
   return (
     <Card>
-      <MDBox display="flex" justifyContent="right" alignItems="right">
-        <Button color="dark">
-          <Icon>settings</Icon>
-        </Button>
+      <MDBox display="flex" justifyContent="space_around" alignItems="left">
+        <Grid sm={10} px={10}>
+          <MDBox textAlign="left">
+            <MDTypography
+              textAlign="left"
+              my={1}
+              variant="h4"
+              color="dark"
+              sx={{
+                fontSize: "1.25rem",
+              }}
+            >
+              Bonus de maitrise: {stats.proficiency}
+            </MDTypography>
+          </MDBox>
+        </Grid>
+        <Grid sm={2}>
+          <Button color="dark" onClick={switchEditable}>
+            <Icon>settings</Icon>
+          </Button>
+        </Grid>
       </MDBox>
       <Divider />
       <MDBox px={2}>
@@ -68,11 +110,16 @@ function StatisticsCard({ color, title, count, percentage, icon }) {
             <MDBox textAlign="left" lineHeight={1.5}>
               <MDTypography variant="h4" fontWeight="light" color="text">
                 <MDInput
-                  variant={isEditable ? "outlined" : "standard"}
+                  variant={isStatEditable ? "outlined" : "standard"}
+                  inputProps={{ disabled: !isStatEditable }}
                   sx={{
                     ".MuiInputBase-input": { fontSize: "1.25rem" },
                     width: "4rem",
                   }}
+                  id="strength"
+                  name="strength"
+                  onChange={onChange}
+                  defaultValue={form.strength}
                 ></MDInput>
               </MDTypography>
             </MDBox>
@@ -128,11 +175,16 @@ function StatisticsCard({ color, title, count, percentage, icon }) {
             <MDBox textAlign="left" lineHeight={1.5}>
               <MDTypography variant="h4" fontWeight="light" color="text">
                 <MDInput
-                  variant={isEditable ? "outlined" : "standard"}
+                  variant={isStatEditable ? "outlined" : "standard"}
+                  inputProps={{ disabled: !isStatEditable }}
                   sx={{
                     ".MuiInputBase-input": { fontSize: "1.25rem" },
                     width: "4rem",
                   }}
+                  id="dexterity"
+                  name="dexterity"
+                  onChange={onChange}
+                  defaultValue={stats.dexterity}
                 ></MDInput>
               </MDTypography>
             </MDBox>
@@ -186,11 +238,16 @@ function StatisticsCard({ color, title, count, percentage, icon }) {
             <MDBox textAlign="left" lineHeight={1.5}>
               <MDTypography variant="h4" fontWeight="light" color="text">
                 <MDInput
-                  variant={isEditable ? "outlined" : "standard"}
+                  variant={isStatEditable ? "outlined" : "standard"}
+                  inputProps={{ disabled: !isStatEditable }}
                   sx={{
                     ".MuiInputBase-input": { fontSize: "1.25rem" },
                     width: "4rem",
                   }}
+                  id="constitution"
+                  name="constitution"
+                  onChange={onChange}
+                  defaultValue={stats.constitution}
                 ></MDInput>
               </MDTypography>
             </MDBox>
@@ -244,11 +301,16 @@ function StatisticsCard({ color, title, count, percentage, icon }) {
             <MDBox textAlign="left" lineHeight={1.5}>
               <MDTypography variant="h4" fontWeight="light" color="text">
                 <MDInput
-                  variant={isEditable ? "outlined" : "standard"}
+                  variant={isStatEditable ? "outlined" : "standard"}
+                  inputProps={{ disabled: !isStatEditable }}
                   sx={{
                     ".MuiInputBase-input": { fontSize: "1.25rem" },
                     width: "4rem",
                   }}
+                  id="intelligence"
+                  name="intelligence"
+                  onChange={onChange}
+                  defaultValue={stats.intelligence}
                 ></MDInput>
               </MDTypography>
             </MDBox>
@@ -302,11 +364,16 @@ function StatisticsCard({ color, title, count, percentage, icon }) {
             <MDBox textAlign="left" lineHeight={1.5}>
               <MDTypography variant="h4" fontWeight="light" color="text">
                 <MDInput
-                  variant={isEditable ? "outlined" : "standard"}
+                  variant={isStatEditable ? "outlined" : "standard"}
+                  inputProps={{ disabled: !isStatEditable }}
                   sx={{
                     ".MuiInputBase-input": { fontSize: "1.25rem" },
                     width: "4rem",
                   }}
+                  id="wisdom"
+                  name="wisdom"
+                  onChange={onChange}
+                  defaultValue={stats.wisdom}
                 ></MDInput>
               </MDTypography>
             </MDBox>
@@ -360,11 +427,16 @@ function StatisticsCard({ color, title, count, percentage, icon }) {
             <MDBox textAlign="left" lineHeight={1.5}>
               <MDTypography variant="h4" fontWeight="light" color="text">
                 <MDInput
-                  variant={isEditable ? "outlined" : "standard"}
+                  variant={isStatEditable ? "outlined" : "standard"}
+                  inputProps={{ disabled: !isStatEditable }}
                   sx={{
                     ".MuiInputBase-input": { fontSize: "1.25rem" },
                     width: "4rem",
                   }}
+                  id="charisma"
+                  name="charisma"
+                  onChange={onChange}
+                  defaultValue={stats.charisma}
                 ></MDInput>
               </MDTypography>
             </MDBox>
@@ -392,45 +464,42 @@ function StatisticsCard({ color, title, count, percentage, icon }) {
   );
 }
 
-// Setting default values for the props of ComplexStatisticsCard
-StatisticsCard.defaultProps = {
-  color: "info",
-  percentage: {
-    color: "success",
-    text: "",
-    label: "",
-  },
-};
+// // Setting default values for the props of ComplexStatisticsCard
+// StatisticsCard.defaultProps = {
+//   color: "info",
+//   stats: [],
+//   setStat: () => {},
+// };
 
-// Typechecking props for the ComplexStatisticsCard
-StatisticsCard.propTypes = {
-  color: PropTypes.oneOf([
-    "primary",
-    "secondary",
-    "info",
-    "success",
-    "warning",
-    "error",
-    "light",
-    "dark",
-  ]),
-  title: PropTypes.string.isRequired,
-  count: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  percentage: PropTypes.shape({
-    color: PropTypes.oneOf([
-      "primary",
-      "secondary",
-      "info",
-      "success",
-      "warning",
-      "error",
-      "dark",
-      "white",
-    ]),
-    amount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    label: PropTypes.string,
-  }),
-  icon: PropTypes.node.isRequired,
-};
+// // Typechecking props for the ComplexStatisticsCard
+// StatisticsCard.propTypes = {
+//   color: PropTypes.oneOf([
+//     "primary",
+//     "secondary",
+//     "info",
+//     "success",
+//     "warning",
+//     "error",
+//     "light",
+//     "dark",
+//   ]),
+//   title: PropTypes.string.isRequired,
+//   count: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+//   percentage: PropTypes.shape({
+//     color: PropTypes.oneOf([
+//       "primary",
+//       "secondary",
+//       "info",
+//       "success",
+//       "warning",
+//       "error",
+//       "dark",
+//       "white",
+//     ]),
+//     amount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+//     label: PropTypes.string,
+//   }),
+//   icon: PropTypes.node.isRequired,
+// };
 
 export default StatisticsCard;
