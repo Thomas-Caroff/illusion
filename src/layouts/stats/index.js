@@ -25,7 +25,8 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
 import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
-import StatisticsCard from "examples/Cards/StatisticsCards";
+import StatisticsCard from "examples/Cards/StatisticsCards/BaseStatsCards";
+import ProficiencyCard from "examples/Cards/StatisticsCards/proficiencyCards";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 
 // Data
@@ -35,6 +36,7 @@ import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 // Dashboard components
 import Projects from "layouts/dashboard/components/Projects";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
+
 import { useEffect, useState } from "react";
 import { API_URL } from "constants";
 
@@ -75,19 +77,8 @@ function Stats() {
               <StatisticsCard color="dark" stats={caracterisctics} setStat={setCaracterisctics} />
             </MDBox>
           </Grid>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                icon="leaderboard"
-                title="Today's Users"
-                count="2,300"
-                percentage={{
-                  color: "success",
-                  amount: "+3%",
-                  label: "than last month",
-                }}
-              />
-            </MDBox>
+          <Grid item xs={12} md={6} lg={5}>
+            <ProficiencyCard color="dark" stats={caracterisctics} setStat={setCaracterisctics} />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
             <MDBox mb={1.5}>

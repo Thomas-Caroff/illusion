@@ -37,6 +37,7 @@ Coded by www.creative-tim.com
 
 // Material Dashboard 2 React layouts
 import Stats from "layouts/stats";
+import Embed from "layouts/embed";
 import Dashboard from "layouts/dashboard";
 import Tables from "layouts/tables";
 import Billing from "layouts/billing";
@@ -57,6 +58,11 @@ const routes = [
     icon: <Icon fontSize="small">token</Icon>,
     route: "/stats",
     component: <Stats />,
+  },
+  {
+    key: "embed",
+    route: "/embed",
+    component: <Embed />,
   },
   {
     type: "collapse",
