@@ -110,7 +110,7 @@ function StatisticsCard({ color, stats }) {
               <MDInput
                 variant={isStatEditable ? "outlined" : "standard"}
                 inputProps={{ disabled: !isStatEditable }}
-                sx={{ width: "4rem", fontSize: "1.25rem" }}
+                sx={{ width: "4rem", fontSize: "2rem", fontweight: "medium", textAlign: "Center" }}
                 id={stat.id}
                 value={form[stat.id] || ""}
                 onChange={onChange}

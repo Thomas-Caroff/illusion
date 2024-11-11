@@ -14,6 +14,7 @@
   "plugins": ["react", "prettier"],
   "rules": {
     "react/prop-types": "off",
+    "react/no-unknown-property": ["error", { "ignore": ["jsx", "css", "js"] }],
     "prettier/prettier": [
       "warn",
       {
