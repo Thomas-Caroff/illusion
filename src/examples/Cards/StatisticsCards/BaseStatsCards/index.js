@@ -26,22 +26,19 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import { Button, Grid } from "@mui/material";
 import MDInput from "components/MDInput";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function StatisticsCard({ color, stats }) {
-  const [form, setValues] = useState({
-    strength: stats.strength,
-    dexterity: stats.dexterity,
-    constitution: stats.constitution,
-    intelligence: stats.intelligence,
-    wisdom: stats.wisdom,
-    charisma: stats.charisma,
-    proficiency: stats.proficiency,
-  });
+  const [form, setValues] = useState({ stats });
   const [isStatEditable, setIsStatEditable] = useState(false);
+
+  useEffect(() => {
+    setValues(stats);
+  }, [stats]);
 
   function switchEditable() {
     if (isStatEditable) {
+      //TODO: Save stats with PUT request
     }
     setIsStatEditable(!isStatEditable);
     return 0;
@@ -80,385 +77,62 @@ function StatisticsCard({ color, stats }) {
       </MDBox>
       <Divider />
       <MDBox px={2}>
-        <Grid container display="flex" justifyContent="space-between">
-          <Grid sm={3} py={1}>
-            <MDBox
-              variant="gradient"
-              bgColor={color}
-              color={color === "light" ? "dark" : "white"}
-              coloredShadow={color}
-              borderRadius="xl"
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              width="3rem"
-              height="3rem"
-            >
-              <Icon fontSize="medium" color="inherit">
-                fitness_center
-              </Icon>
-            </MDBox>
-          </Grid>
-          <Grid sm={5} py={1} mt={1}>
-            <MDBox textAlign="left" lineHeight={1.25}>
+        {[
+          { label: "Force", id: "strength", icon: "fitness_center" },
+          { label: "Dextérité", id: "dexterity", icon: "sports_martial_arts" },
+          { label: "Constitution", id: "constitution", icon: "favorite" },
+          { label: "Intelligence", id: "intelligence", icon: "local_library" },
+          { label: "Sagesse", id: "wisdom", icon: "emoji_objects" },
+          { label: "Charisme", id: "charisma", icon: "auto_awesome" },
+        ].map((stat) => (
+          <Grid container display="flex" justifyContent="space-between" key={stat.id}>
+            <Grid sm={3} py={1}>
+              <MDBox
+                variant="gradient"
+                bgColor={color}
+                color={color === "light" ? "dark" : "white"}
+                borderRadius="xl"
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                width="3rem"
+                height="3rem"
+              >
+                <Icon>{stat.icon}</Icon>
+              </MDBox>
+            </Grid>
+            <Grid sm={5} py={1}>
               <MDTypography variant="h4" color="dark">
-                Force
+                {stat.label}
               </MDTypography>
-            </MDBox>
+            </Grid>
+            <Grid sm={2} py={1}>
+              <MDInput
+                variant={isStatEditable ? "outlined" : "standard"}
+                inputProps={{ disabled: !isStatEditable }}
+                sx={{ width: "4rem", fontSize: "1.25rem" }}
+                id={stat.id}
+                value={form[stat.id] || ""}
+                onChange={onChange}
+              />
+            </Grid>
+            <Grid sm={2} py={1}>
+              <MDBox
+                textAlign="center"
+                borderRadius="50%"
+                borderColor="dark"
+                border="2px solid"
+                width="3rem"
+                height="3rem"
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <MDTypography variant="h4">+4</MDTypography>
+              </MDBox>
+            </Grid>
           </Grid>
-          <Grid sm={2} py={1}>
-            <MDBox textAlign="left" lineHeight={1.5}>
-              <MDTypography variant="h4" fontWeight="light" color="text">
-                <MDInput
-                  variant={isStatEditable ? "outlined" : "standard"}
-                  inputProps={{ disabled: !isStatEditable }}
-                  sx={{
-                    ".MuiInputBase-input": { fontSize: "1.25rem" },
-                    width: "4rem",
-                  }}
-                  id="strength"
-                  name="strength"
-                  onChange={onChange}
-                  defaultValue={form.strength}
-                ></MDInput>
-              </MDTypography>
-            </MDBox>
-          </Grid>
-          <Grid sm={2} py={1}>
-            <MDBox
-              textAlign="right"
-              borderRadius="50%"
-              borderColor="dark"
-              border="2px solid"
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              width="3rem"
-              height="3rem"
-            >
-              <MDTypography variant="h4" color="dark">
-                +2
-              </MDTypography>
-            </MDBox>
-          </Grid>
-        </Grid>
-
-        {/* Dexterity */}
-
-        <Grid container display="flex" justifyContent="space-between">
-          <Grid sm={3} py={1}>
-            <MDBox
-              variant="gradient"
-              bgColor={color}
-              color={color === "light" ? "dark" : "white"}
-              coloredShadow={color}
-              borderRadius="xl"
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              width="3rem"
-              height="3rem"
-            >
-              <Icon fontSize="medium" color="inherit">
-                sports_martial_arts
-              </Icon>
-            </MDBox>
-          </Grid>
-          <Grid sm={5} py={1} mt={1}>
-            <MDBox textAlign="left" lineHeight={1.25}>
-              <MDTypography variant="h4" color="dark">
-                Dextérité
-              </MDTypography>
-            </MDBox>
-          </Grid>
-          <Grid sm={2} py={1}>
-            <MDBox textAlign="left" lineHeight={1.5}>
-              <MDTypography variant="h4" fontWeight="light" color="text">
-                <MDInput
-                  variant={isStatEditable ? "outlined" : "standard"}
-                  inputProps={{ disabled: !isStatEditable }}
-                  sx={{
-                    ".MuiInputBase-input": { fontSize: "1.25rem" },
-                    width: "4rem",
-                  }}
-                  id="dexterity"
-                  name="dexterity"
-                  onChange={onChange}
-                  defaultValue={stats.dexterity}
-                ></MDInput>
-              </MDTypography>
-            </MDBox>
-          </Grid>
-          <Grid sm={2} py={1}>
-            <MDBox
-              textAlign="right"
-              borderRadius="50%"
-              borderColor="dark"
-              border="2px solid"
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              width="3rem"
-              height="3rem"
-            >
-              <MDTypography variant="h4" color="dark">
-                +2
-              </MDTypography>
-            </MDBox>
-          </Grid>
-        </Grid>
-        {/* Constitution */}
-        <Grid container display="flex" justifyContent="space-between">
-          <Grid sm={3} py={1}>
-            <MDBox
-              variant="gradient"
-              bgColor={color}
-              color={color === "light" ? "dark" : "white"}
-              coloredShadow={color}
-              borderRadius="xl"
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              width="3rem"
-              height="3rem"
-            >
-              <Icon fontSize="medium" color="inherit">
-                favorite
-              </Icon>
-            </MDBox>
-          </Grid>
-          <Grid sm={5} py={1} mt={1}>
-            <MDBox textAlign="Left" lineHeight={1.25}>
-              <MDTypography variant="h4" color="dark">
-                Constitution
-              </MDTypography>
-            </MDBox>
-          </Grid>
-          <Grid sm={2} py={1}>
-            <MDBox textAlign="left" lineHeight={1.5}>
-              <MDTypography variant="h4" fontWeight="light" color="text">
-                <MDInput
-                  variant={isStatEditable ? "outlined" : "standard"}
-                  inputProps={{ disabled: !isStatEditable }}
-                  sx={{
-                    ".MuiInputBase-input": { fontSize: "1.25rem" },
-                    width: "4rem",
-                  }}
-                  id="constitution"
-                  name="constitution"
-                  onChange={onChange}
-                  defaultValue={stats.constitution}
-                ></MDInput>
-              </MDTypography>
-            </MDBox>
-          </Grid>
-          <Grid sm={2} py={1}>
-            <MDBox
-              textAlign="right"
-              borderRadius="50%"
-              borderColor="dark"
-              border="2px solid"
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              width="3rem"
-              height="3rem"
-            >
-              <MDTypography variant="h4" color="dark">
-                +2
-              </MDTypography>
-            </MDBox>
-          </Grid>
-        </Grid>
-        {/* Intelligence */}
-        <Grid container display="flex" justifyContent="space-between">
-          <Grid sm={3} py={1}>
-            <MDBox
-              variant="gradient"
-              bgColor={color}
-              color={color === "light" ? "dark" : "white"}
-              coloredShadow={color}
-              borderRadius="xl"
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              width="3rem"
-              height="3rem"
-            >
-              <Icon fontSize="medium" color="inherit">
-                local_library
-              </Icon>
-            </MDBox>
-          </Grid>
-          <Grid sm={5} py={1} mt={1}>
-            <MDBox textAlign="left" lineHeight={1.25}>
-              <MDTypography variant="h4" color="dark">
-                Intelligence
-              </MDTypography>
-            </MDBox>
-          </Grid>
-          <Grid sm={2} py={1}>
-            <MDBox textAlign="left" lineHeight={1.5}>
-              <MDTypography variant="h4" fontWeight="light" color="text">
-                <MDInput
-                  variant={isStatEditable ? "outlined" : "standard"}
-                  inputProps={{ disabled: !isStatEditable }}
-                  sx={{
-                    ".MuiInputBase-input": { fontSize: "1.25rem" },
-                    width: "4rem",
-                  }}
-                  id="intelligence"
-                  name="intelligence"
-                  onChange={onChange}
-                  defaultValue={stats.intelligence}
-                ></MDInput>
-              </MDTypography>
-            </MDBox>
-          </Grid>
-          <Grid sm={2} py={1}>
-            <MDBox
-              textAlign="right"
-              borderRadius="50%"
-              borderColor="dark"
-              border="2px solid"
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              width="3rem"
-              height="3rem"
-            >
-              <MDTypography variant="h4" color="dark">
-                +2
-              </MDTypography>
-            </MDBox>
-          </Grid>
-        </Grid>
-        {/* Wisdom */}
-        <Grid container display="flex" justifyContent="space-between">
-          <Grid sm={3} py={1}>
-            <MDBox
-              variant="gradient"
-              bgColor={color}
-              color={color === "light" ? "dark" : "white"}
-              coloredShadow={color}
-              borderRadius="xl"
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              width="3rem"
-              height="3rem"
-            >
-              <Icon fontSize="medium" color="inherit">
-                emoji_objects
-              </Icon>
-            </MDBox>
-          </Grid>
-          <Grid sm={5} py={1} mt={1}>
-            <MDBox textAlign="left" lineHeight={1.25}>
-              <MDTypography variant="h4" color="dark">
-                Sagesse
-              </MDTypography>
-            </MDBox>
-          </Grid>
-          <Grid sm={2} py={1}>
-            <MDBox textAlign="left" lineHeight={1.5}>
-              <MDTypography variant="h4" fontWeight="light" color="text">
-                <MDInput
-                  variant={isStatEditable ? "outlined" : "standard"}
-                  inputProps={{ disabled: !isStatEditable }}
-                  sx={{
-                    ".MuiInputBase-input": { fontSize: "1.25rem" },
-                    width: "4rem",
-                  }}
-                  id="wisdom"
-                  name="wisdom"
-                  onChange={onChange}
-                  defaultValue={stats.wisdom}
-                ></MDInput>
-              </MDTypography>
-            </MDBox>
-          </Grid>
-          <Grid sm={2} py={1}>
-            <MDBox
-              textAlign="right"
-              borderRadius="50%"
-              borderColor="dark"
-              border="2px solid"
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              width="3rem"
-              height="3rem"
-            >
-              <MDTypography variant="h4" color="dark">
-                +2
-              </MDTypography>
-            </MDBox>
-          </Grid>
-        </Grid>
-        {/* Charisma */}
-        <Grid container display="flex" justifyContent="space-between">
-          <Grid sm={3} py={1}>
-            <MDBox
-              variant="gradient"
-              bgColor={color}
-              color={color === "light" ? "dark" : "white"}
-              coloredShadow={color}
-              borderRadius="xl"
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              width="3rem"
-              height="3rem"
-            >
-              <Icon fontSize="medium" color="inherit">
-                auto_awesome
-              </Icon>
-            </MDBox>
-          </Grid>
-          <Grid sm={5} py={1} mt={1}>
-            <MDBox textAlign="left" lineHeight={1.25}>
-              <MDTypography variant="h4" color="dark">
-                Charisme
-              </MDTypography>
-            </MDBox>
-          </Grid>
-          <Grid sm={2} py={1}>
-            <MDBox textAlign="left" lineHeight={1.5}>
-              <MDTypography variant="h4" fontWeight="light" color="text">
-                <MDInput
-                  variant={isStatEditable ? "outlined" : "standard"}
-                  inputProps={{ disabled: !isStatEditable }}
-                  sx={{
-                    ".MuiInputBase-input": { fontSize: "1.25rem" },
-                    width: "4rem",
-                  }}
-                  id="charisma"
-                  name="charisma"
-                  onChange={onChange}
-                  defaultValue={stats.charisma}
-                ></MDInput>
-              </MDTypography>
-            </MDBox>
-          </Grid>
-          <Grid sm={2} py={1}>
-            <MDBox
-              textAlign="right"
-              borderRadius="50%"
-              borderColor="dark"
-              border="2px solid"
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              width="3rem"
-              height="3rem"
-            >
-              <MDTypography variant="h4" color="dark">
-                +2
-              </MDTypography>
-            </MDBox>
-          </Grid>
-        </Grid>
+        ))}
       </MDBox>
     </Card>
   );
