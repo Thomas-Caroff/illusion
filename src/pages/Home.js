@@ -19,7 +19,6 @@ class Home extends Component {
 
   getUsers = () => {
     axios.get(API_URL + "user/").then((res) => this.setState({ users: res.data }));
-    console.log(this.state.users);
   };
 
   resetState = () => {

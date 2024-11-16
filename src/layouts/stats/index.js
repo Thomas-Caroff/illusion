@@ -49,21 +49,47 @@ function Stats() {
   useEffect(() => {
     // Fetch our data from our API
     fetch(API_URL + "character/" + hardcoded_character)
-      // Resolve the responsove data
+      // Resolve the responsive data
       .then((response) => response.json())
       .then((json) => {
-        // Show data in console
-        const caracterisctics = {
-          strength: json[0].strength,
-          dexterity: json[0].dexterity,
-          constitution: json[0].constitution,
-          intelligence: json[0].intelligence,
-          wisdom: json[0].wisdom,
-          charisma: json[0].charisma,
-          proficiency: json[0].proficiency_bonus,
-        };
-        console.log(json);
-        setCaracterisctics(caracterisctics);
+        fetch(API_URL + "characterstats/" + json[0].character_stats)
+          .then((response) => response.json())
+          .then((stats) => {
+            console.log(stats[0]);
+            const caracterisctics = {
+              id: stats[0].id,
+
+              // DnD/PF/FF
+              strength: stats[0].strength,
+              dexterity: stats[0].dexterity,
+              constitution: stats[0].constitution,
+              intelligence: stats[0].intelligence,
+              wisdom: stats[0].wisdom,
+              charisma: stats[0].charisma,
+
+              proficiency: json[0].proficiency_bonus,
+
+              // Modifiers
+              strength_mod: stats[0].str_mod,
+              dexterity_mod: stats[0].dex_mod,
+              constitution_mod: stats[0].con_mod,
+              intelligence_mod: stats[0].int_mod,
+              wisdom_mod: stats[0].wis_mod,
+              charisma_mod: stats[0].cha_mod,
+
+              // Illusion
+              diplomacy: stats[0].diplomacy,
+              diplomacy_mod: stats[0].dip_mod,
+
+              // Aventure
+              social: stats[0].social,
+              mental: stats[0].mental,
+              physic: stats[0].physic,
+            };
+
+            console.log(stats, json);
+            setCaracterisctics(caracterisctics);
+          });
       });
   }, []);
 
@@ -74,7 +100,12 @@ function Stats() {
         <Grid container spacing={3}>
           <Grid item xs={12} md={6} lg={5}>
             <MDBox mb={1.5}>
-              <StatisticsCard color="dark" stats={caracterisctics} setStat={setCaracterisctics} />
+              <StatisticsCard
+                color="dark"
+                stats={caracterisctics}
+                setStat={setCaracterisctics}
+                stat_id={caracterisctics.id}
+              />
             </MDBox>
           </Grid>
           <Grid item xs={12} md={6} lg={5}>

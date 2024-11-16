@@ -116,8 +116,7 @@ export default function App() {
       // Resolve the responsove data
       .then((response) => response.json())
       .then((json) => {
-        // Show data in console
-        console.log(json);
+        // TODO : Basic user GET requests
       });
   }, []);
 
