@@ -41,6 +41,8 @@ function StatisticsCard({ color, stats, stat_id }) {
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
 
+  const [isFormAltered, setIsFormAltered] = useState(false);
+
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
   };
@@ -66,7 +68,7 @@ function StatisticsCard({ color, stats, stat_id }) {
   };
 
   async function switchEditable() {
-    if (isStatEditable) {
+    if (isStatEditable && isFormAltered) {
       // Calculation of mods values
       const updatedStats = calculateModifiers(form);
       setValues(updatedStats);
@@ -81,8 +83,9 @@ function StatisticsCard({ color, stats, stat_id }) {
         });
 
         if (response.ok) {
-          setSnackbarMessage("Les statistiques ont été mises à jour avec succès !");
+          setSnackbarMessage("Statistiques mises à jour avec succès !");
           setSnackbarSeverity("success");
+          setIsFormAltered(false);
         } else {
           setSnackbarMessage("Erreur lors de la mise à jour des statistiques.");
           setSnackbarSeverity("error");
@@ -97,6 +100,7 @@ function StatisticsCard({ color, stats, stat_id }) {
   }
 
   const onChange = (e) => {
+    setIsFormAltered(true);
     setValues({
       ...form,
       [e.target.id]: e.target.value,
@@ -105,6 +109,16 @@ function StatisticsCard({ color, stats, stat_id }) {
 
   return (
     <Card>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={3000} // Fermer automatiquement après 4 secondes
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert onClose={handleSnackbarClose} severity={snackbarSeverity} sx={{ width: "100%" }}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
       <MDBox display="flex" justifyContent="space_around" alignItems="left">
         <Grid sm={10} px={5} py={1}>
           <MDBox textAlign="left">
