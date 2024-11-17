@@ -26,7 +26,7 @@ import Footer from "examples/Footer";
 import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
 import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
 import StatisticsCard from "examples/Cards/StatisticsCards/BaseStatsCards";
-import ProficiencyCard from "examples/Cards/StatisticsCards/proficiencyCards";
+import SkillsCard from "examples/Cards/StatisticsCards/SkillsCards";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 
 // Data
@@ -42,9 +42,11 @@ import { API_URL } from "constants";
 
 function Stats() {
   let [caracterisctics, setCaracterisctics] = useState([]);
+  let [skills, setSkills] = useState([]);
   const { sales, tasks } = reportsLineChartData;
 
   const hardcoded_character = "tscxxg28";
+  const hardcoded_skillset = "clmmag9q";
 
   useEffect(() => {
     // Fetch our data from our API
@@ -55,7 +57,6 @@ function Stats() {
         fetch(API_URL + "characterstats/" + json[0].character_stats)
           .then((response) => response.json())
           .then((stats) => {
-            console.log(stats[0]);
             const caracterisctics = {
               id: stats[0].id,
 
@@ -87,9 +88,26 @@ function Stats() {
               physic: stats[0].physic,
             };
 
-            console.log(stats, json);
             setCaracterisctics(caracterisctics);
           });
+      });
+    fetch(API_URL + "skillset/" + hardcoded_skillset)
+      // Resolve the responsive data
+      .then((response) => response.json())
+      .then((skillset) => {
+        const skill_id_list = skillset[0].skill_list.split(",");
+        var skill_list = [];
+        for (var key in skill_id_list) {
+          var skill_id = skill_id_list[key];
+          if (skill_id != "") {
+            fetch(API_URL + "skill/" + skill_id)
+              .then((response) => response.json())
+              .then((skill) => {
+                skill_list.push(skill[0]);
+              });
+          }
+        }
+        setSkills(skill_list);
       });
   }, []);
 
@@ -109,7 +127,7 @@ function Stats() {
             </MDBox>
           </Grid>
           <Grid item xs={12} md={6} lg={5}>
-            <ProficiencyCard color="dark" stats={caracterisctics} setStat={setCaracterisctics} />
+            <SkillsCard skillList={skills} setStat={setSkills} />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
             <MDBox mb={1.5}>
