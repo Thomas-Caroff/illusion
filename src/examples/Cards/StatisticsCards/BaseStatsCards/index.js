@@ -120,50 +120,7 @@ function StatisticsCard({ color, stats, stat_id }) {
         </Alert>
       </Snackbar>
       <MDBox display="flex" justifyContent="space_around" alignItems="left">
-        <Grid sm={10} px={5} py={1}>
-          <MDBox textAlign="left">
-            <MDTypography
-              textAlign="left"
-              my={1}
-              variant="h4"
-              display="inline"
-              color="dark"
-              sx={{
-                fontSize: "1.25rem",
-              }}
-            >
-              Bonus de maitrise :&nbsp;
-            </MDTypography>
-            {!isStatEditable ? (
-              <MDTypography
-                textAlign="left"
-                variant="h4"
-                color="dark"
-                display="inline"
-                sx={{
-                  fontSize: "1.25rem",
-                }}
-              >
-                {form.proficiency}
-              </MDTypography>
-            ) : (
-              <MDInput
-                variant="outlined"
-                textAlign="left"
-                color="dark"
-                display="inline"
-                type="number"
-                sx={{
-                  width: "3rem",
-                  textAlign: "Center",
-                }}
-                id="proficiency"
-                value={form.proficiency}
-                onChange={onChange}
-              />
-            )}
-          </MDBox>
-        </Grid>
+        <Grid sm={10} px={5} py={1}></Grid>
         <Grid sm={2}>
           <Button color="dark" onClick={switchEditable}>
             <Icon>settings</Icon>

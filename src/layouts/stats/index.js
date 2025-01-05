@@ -49,9 +49,7 @@ function Stats() {
   const hardcoded_skillset = "clmmag9q";
 
   useEffect(() => {
-    // Fetch our data from our API
     fetch(API_URL + "character/" + hardcoded_character)
-      // Resolve the responsive data
       .then((response) => response.json())
       .then((json) => {
         fetch(API_URL + "characterstats/" + json[0].character_stats)
@@ -67,8 +65,6 @@ function Stats() {
               intelligence: stats[0].intelligence,
               wisdom: stats[0].wisdom,
               charisma: stats[0].charisma,
-
-              proficiency: json[0].proficiency_bonus,
 
               // Modifiers
               strength_mod: stats[0].str_mod,
@@ -86,28 +82,35 @@ function Stats() {
               social: stats[0].social,
               mental: stats[0].mental,
               physic: stats[0].physic,
+
+              // Skill Expertises
+              proficiency_bonus: stats[0].proficiency_bonus,
+              skill_proficiency: stats[0].skill_proficiency,
+              skill_expertise: stats[0].skill_expertise,
             };
 
             setCaracterisctics(caracterisctics);
           });
       });
     fetch(API_URL + "skillset/" + hardcoded_skillset)
-      // Resolve the responsive data
       .then((response) => response.json())
-      .then((skillset) => {
+      .then(async (skillset) => {
         const skill_id_list = skillset[0].skill_list.split(",");
-        var skill_list = [];
-        for (var key in skill_id_list) {
-          var skill_id = skill_id_list[key];
-          if (skill_id != "") {
-            fetch(API_URL + "skill/" + skill_id)
-              .then((response) => response.json())
-              .then((skill) => {
-                skill_list.push(skill[0]);
-              });
-          }
-        }
+        const skill_list = await Promise.all(
+          skill_id_list
+            .filter((skill_id) => skill_id !== "")
+            .map((skill_id) =>
+              fetch(API_URL + "skill/" + skill_id)
+                .then((response) => response.json())
+                .then((skill) => skill[0])
+            )
+        );
+
+        skill_list.sort((a, b) => a.skill_name.localeCompare(b.skill_name));
         setSkills(skill_list);
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la récupération des compétences :", error);
       });
   }, []);
 
@@ -127,7 +130,7 @@ function Stats() {
             </MDBox>
           </Grid>
           <Grid item xs={12} md={6} lg={5}>
-            <SkillsCard skillList={skills} setStat={setSkills} />
+            <SkillsCard skillList={skills} stats={caracterisctics} />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
             <MDBox mb={1.5}>
